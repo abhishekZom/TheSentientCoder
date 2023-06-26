@@ -7,8 +7,59 @@
     <link href="css/style.css" rel="stylesheet">
     <style>
     
+    /* .background { */
+    /*   background: rgb(52, 166, 251); */
+    /*   table-layout: fixed; */
+    /*   border-spacing: 0; */
+    /* } */
+    /* .background td { */
+    /*   padding: 0;          */
+    /* } */
+    /* .lava { */
+    /*   background: rgb(255, 100, 100);  */
+    /* } */
+    /* .wall { */
+    /*   background: white; */
+    /* } */
+    /* .actor  { */
+    /*   position: absolute; */
+    /* } */
+    /* .coin { */
+    /*   background: rgb(241, 229, 89); */
+    /* } */
+    /* .player { */
+    /*   background: rgb(64, 64, 64); */
+    /* } */
+    /* .lost .player { */
+    /*   background: rgb(160, 64, 64); */
+    /* } */
+    /* .won .player { */
+    /*   box-shadow: -4px -7px 8px white, 4px -7px 8px white; */
+    /* } */
+    /* .game { */
+    /*   overflow: hidden; */
+    /*   width: 1200px; */
+    /*   height: 700px; */
+    /*   position: relative; */
+    /*   margin: 1rem auto; */
+    /*   border: 5px solid rgb(52, 166, 255); */
+    /* } */
+    /**/
+
+    body {
+      background: black;
+    }
+
+    .page__container {
+      display: flex;
+      flex-direction: column;
+    }
+    .info__holder {
+      display: flex;
+      color: lightgray;
+    }
     .background {
-      background: rgb(52, 166, 251);
+      background: rgb(50, 50, 50);
       table-layout: fixed;
       border-spacing: 0;
     }
@@ -16,19 +67,38 @@
       padding: 0;         
     }
     .lava {
-      background: rgb(255, 100, 100); 
+      background: darkred;
+      border-radius: 10px;
+      background-image: url("assets/actors/lava.png");
+      background-size: contain;
     }
     .wall {
-      background: white;
+      background: grey;
+      background-image: url("assets/tiles/brick2.png");
+      background-size: contain;
     }
+    .greenwall {
+      background-image: url("assets/tiles/greenwall.png");
+      background-size: contain;
+    }
+
     .actor  {
       position: absolute;
     }
     .coin {
-      background: rgb(241, 229, 89);
+      background: gold;
+      border-radius: 10px;
+      background-image: url("assets/actors/coin.png");
+      background-size: contain;
     }
     .player {
-      background: rgb(64, 64, 64);
+      /* background-image: url("assets/player.png"); */
+      /* background-size: contain; */
+      background-color: silver;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background-image: url("assets/player.png");
+      background-size: contain;
     }
     .lost .player {
       background: rgb(160, 64, 64);
@@ -38,17 +108,26 @@
     }
     .game {
       overflow: hidden;
-      max-width: 600px;
-      max-height: 450px;
+      width: 1200px;
+      height: 680px;
       position: relative;
+      margin: 3rem auto;
     }
 
   </style>
   </head>
   <body>
-    <div>
-
-    </div> 
+    <div class="page__container">
+      <div id="gamePlaceholder"></div>
+      <div id="infoHolder" class="info__holder">
+        asdfaishfoe
+        asdfaishfoe
+        asdfaishfoe
+        asdfaishfoe
+        asdfaishfoe
+        asdfaishfoe
+      </div>
+    </div>
     <script src="./game.js"></script>
   </body>
 </html>
