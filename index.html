@@ -47,7 +47,7 @@
     /**/
 
     body {
-      background: black;
+      background: rgb(20, 20, 20);
     }
 
     .page__container {
@@ -79,10 +79,28 @@
       color: lightgray;
       border: 1px solid gray;
       padding: 10px;
+      margin-top: 10px;
     }
     .info__header {
       color: gray;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .tags__container {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      border: 1px solid gray;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .tags_header {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .tag {
+      margin: 3px 5px;
+      border-radius: 5px;
+      cursor: pointer;
     }
     .background {
       background: rgb(50, 50, 50);
@@ -152,14 +170,41 @@
         <div id="gamePlaceholder"></div>
         <div id="infoHolder" class="info__holder">
           <p class="info__header">INFO</p>
-          <div>
-            <span></span>
-            <img src="./assets/logos/work/ticketmaster.png" width="20px" height="20px" alt="Ticketmaster">
-            <img src="./assets/logos/work/medzin.png" width="20px" height="20px" alt="Medzin">
-            <img src="./assets/logos/work/deber.png" width="20px" height="20px" alt="Deber">
-            <img src="./assets/logos/work/payu.png" width="20px" height="20px" alt="PayU">
-            <img src="./assets/logos/work/shipsy.png" width="20px" height="20px" alt="Shipsy">
+          <!-- <div>
+            <span class="tags_header">Experience</span>
+            <div class="tags__container">
+              <img class="tag" src="./assets/logos/work/ticketmaster.png" width="25px" height="25px" alt="Ticketmaster">
+              <img class="tag" src="./assets/logos/work/medzin.png" width="25px" height="25px" alt="Medzin">
+              <img class="tag" src="./assets/logos/work/deber.png" width="25px" height="25px" alt="Deber">
+              <img class="tag" src="./assets/logos/work/payu.png" width="25px" height="25px" alt="PayU">
+              <img class="tag" src="./assets/logos/work/shipsy.png" width="25px" height="25px" alt="Shipsy">
+              <img class="tag" src="./assets/logos/work/zomato.png" width="25px" height="25px" alt="Shipsy">
+            </div>
           </div>
+          <div>
+            <span class="tags_header">Languages</span>
+            <div class="tags__container">
+              <img class="tag" src="./assets/logos/lang/html.png" width="25px" height="25px" alt="Ticketmaster">
+              <img class="tag" src="./assets/logos/lang/css.png" width="25px" height="25px" alt="Medzin">
+              <img class="tag" src="./assets/logos/lang/javascript.png" width="25px" height="25px" alt="Deber">
+              <img class="tag" src="./assets/logos/lang/typescript.png" width="25px" height="25px" alt="PayU">
+              <img class="tag" src="./assets/logos/lang/c++.png" width="25px" height="25px" alt="Shipsy">
+              <img class="tag" src="./assets/logos/lang/lua.png" width="25px" height="25px" alt="Shipsy">
+              <img class="tag" src="./assets/logos/lang/io.png" width="25px" height="25px" alt="Shipsy">
+            </div>
+          </div>
+          <div>
+            <span class="tags_header">Frameworks</span>
+            <div class="tags__container">
+              <img class="tag" src="./assets/logos/frameworks/react.png" width="25px" height="25px" alt="Ticketmaster">
+              <img class="tag" src="./assets/logos/frameworks/redux.png" width="25px" height="25px" alt="Medzin">
+              <img class="tag" src="./assets/logos/frameworks/saga.png" width="25px" height="25px" alt="Deber">
+              <img class="tag" src="./assets/logos/frameworks/tailwind.png" width="25px" height="25px" alt="PayU">
+              <img class="tag" src="./assets/logos/frameworks/next.png" width="25px" height="25px" alt="Shipsy">
+              <img class="tag" src="./assets/logos/frameworks/socket.png" width="25px" height="25px" alt="Shipsy">
+              <img class="tag" src="./assets/logos/frameworks/juce.png" width="25px" height="25px" alt="Shipsy">
+            </div>
+          </div> -->
         </div>
       </div>
     </div>

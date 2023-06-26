@@ -42,15 +42,15 @@ let simpleLevelPlan =  `
 ................................................................................................................................................................
 `;
 
-let tagStructure = {
-  exp: [
+let tags = {
+  experience: [
     "./assets/logos/work/ticketmaster.png",
     "./assets/logos/work/medzin.png",
     "./assets/logos/work/deber.png",
     "./assets/logos/work/payu.png",
     "./assets/logos/work/shipsy.png",
     "./assets/logos/work/zomato.png"],
-  lang: [
+  languages: [
     "./assets/logos/lang/html.png",
     "./assets/logos/lang/css.png",
     "./assets/logos/lang/javascript.png",
@@ -60,24 +60,47 @@ let tagStructure = {
     "./assets/logos/lang/io.png"
   ],
   frameworks: [
-    "./assets/logos/frameworks.png",
-    "./assets/logos/frameworks.png",
-    "./assets/logos/frameworks.png",
-    "./assets/logos/frameworks.png",
+    "./assets/logos/frameworks/react.png",
+    "./assets/logos/frameworks/redux.png",
+    "./assets/logos/frameworks/saga.png",
+    "./assets/logos/frameworks/next.png",
+    "./assets/logos/frameworks/juce.png",
+    "./assets/logos/frameworks//socket.png",
+    "./assets/logos/frameworks/tailwind.png",
   ],
 }
 
-function tagsRenderer(tags) {
-  let tagsContainer = elt('div', {"class": "tags__container"}, )
-  tagsContainer
+function infoRenderer() {
+  let infoHolder = document.getElementById('infoHolder')
   for(let key in tags) {
-    docuent
-    let tagData = tags[key]
-    tagData.forEach(() => {
+    let tagsWrapper = document.createElement('div')
+    
+    let tagsHeader = document.createElement('span')
+    tagsHeader.setAttribute('class', 'tags_header')
+    tagsHeader.innerText = key
 
+    tagsWrapper.appendChild(tagsHeader)
+
+    let tagsContainer = document.createElement('div')
+    tagsContainer.setAttribute('class', "tags__container")
+
+    let tagData = tags[key]
+    tagData.forEach((tag) => {
+      let tagEle = document.createElement('img')
+      tagEle.setAttribute('class', 'tag')
+      tagEle.setAttribute('src', tag)
+      tagEle.setAttribute('width', "25px")
+      tagEle.setAttribute('height', "25px")
+      tagsContainer.appendChild(tagEle)
     })
+
+    tagsWrapper.appendChild(tagsContainer)
+    infoHolder.appendChild(tagsWrapper)
   }
 }
+
+infoRenderer()
+
 
 class Level {
   constructor(plan) {
@@ -92,7 +115,6 @@ class Level {
         if(typeof type == "string") {
           return type
         }
-
         this.startActors.push(
           type.create(new Vec(x, y), char)
         )
@@ -109,11 +131,9 @@ class State {
     this.actors = actors
     this.status = status
   }
-
   static start(level) {
     return new State(level, level.startActors, "playing")
   }
-
   get player() {
     return this.actors.find(a => a.type === "player")
   }
@@ -125,11 +145,9 @@ class Vec {
     this.x = x
     this.y = y
   }
-
   plus(other) {
     return new Vec(this.x + other.x, this.y + other.y)
   }
-
   times(factor) {
     return new Vec(this.x * factor, this.y * factor)
   }
@@ -144,9 +162,7 @@ class Player {
     this.pos = pos
     this.speed = speed
   }
-  
   get type() {return "player"}
-
   static create(pos) {
     return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0,0))
   }
