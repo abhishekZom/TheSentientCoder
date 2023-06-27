@@ -423,12 +423,12 @@ Lava.prototype.collide = function(state) {
 };
 
 Coin.prototype.collide = function(state) {
-  playCoinCollision()
+  setTimeout(playCoinCollision, 0)
   let filtered = state.actors.filter(a => a != this);
   let status = state.status;
   if (!filtered.some(a => a.type == "coin")) {
-    playGameWon()
     status = "won";
+    setTimeout(playGameWon, 0)
   };
 
   let tag
