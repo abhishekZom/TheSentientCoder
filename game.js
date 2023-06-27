@@ -165,7 +165,6 @@ function infoRenderer() {
 }
 
 infoRenderer()
-
 class Level {
   constructor(plan) {
     let rows = plan.trim().split("\n").map(level => [...level])
@@ -187,8 +186,6 @@ class Level {
     })
   }
 }
-
-
 class State {
   constructor(level, actors, status) {
     this.level = level
@@ -202,8 +199,6 @@ class State {
     return this.actors.find(a => a.type === "player")
   }
 }
-
-
 class Vec {
   constructor(x,y) {
     this.x = x
