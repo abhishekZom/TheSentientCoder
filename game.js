@@ -48,10 +48,12 @@ function playCoinCollision() {
 }
 function playLavaCollision() {
   let lavaCollision = new Audio('./assets/audio/lava.mp3')
+  lavaCollision.volume = 0.1
   lavaCollision.play()
 }
 function playGameLost() {
   let gameLost = new Audio('./assets/audio/game_lost.mp3')
+  gameLost.volume = 0.1
   gameLost.play()
 }
 function playGameWon() {
@@ -165,6 +167,7 @@ function infoRenderer() {
 }
 
 infoRenderer()
+
 class Level {
   constructor(plan) {
     let rows = plan.trim().split("\n").map(level => [...level])
@@ -297,7 +300,7 @@ function elt(name, attrs, ...children) {
 
 // A display is created by giving it a parent
 // element to which it should append itself and a level object
-class DOMDisplay {
+class Adapter {
   constructor(parent, level) {
     this.dom = elt("div", {class: "game"}, drawGrid(level));
     this.actorLayer = null;
@@ -331,7 +334,7 @@ function drawActors(actors) {
 }
 
 
-DOMDisplay.prototype.syncState = function(state) {
+Adapter.prototype.syncState = function(state) {
   if (this.actorLayer) this.actorLayer.remove();
   this.actorLayer = drawActors(state.actors);
   this.dom.appendChild(this.actorLayer);
@@ -340,7 +343,7 @@ DOMDisplay.prototype.syncState = function(state) {
 };
 
 
-DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
+Adapter.prototype.scrollPlayerIntoView = function(state) {
   let width = this.dom.clientWidth;
   let height = this.dom.clientHeight;
   let margin = width / 3;
@@ -554,7 +557,7 @@ function runLevel(level, Display) {
 
 var simpleLevel = new Level(simpleLevelPlan);
 
-runLevel(simpleLevel, DOMDisplay)
+runLevel(simpleLevel, Adapter)
 
 
 // console.log(`${simpleLevel.width} by ${simpleLevel.height}`)
