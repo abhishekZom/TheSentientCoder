@@ -57,5 +57,5 @@ let shadowLinks =  [
 ]
 
 let shadowInfo = [
-  "I have 7+ years of experience developing software at scale. I love the JS community. When I am not working on building stuff, I am usually occupied with policing my VIM config."
+  "I have 7+ years of experience developing software at scale. I love the JS community. When I am not working on building stuff, I am usually occupied with polishing my VIM config."
 ]
