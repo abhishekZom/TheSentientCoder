@@ -48,12 +48,12 @@ function playCoinCollision() {
 }
 function playLavaCollision() {
   let lavaCollision = new Audio('./assets/audio/lava.mp3')
-  lavaCollision.volume = 0.1
+  lavaCollision.volume = 0.2
   lavaCollision.play()
 }
 function playGameLost() {
   let gameLost = new Audio('./assets/audio/game_lost.mp3')
-  gameLost.volume = 0.1
+  gameLost.volume = 0.3
   gameLost.play()
 }
 function playGameWon() {
@@ -110,8 +110,22 @@ let shadowTags = {
     "./assets/logos/monitor/kibana.png",
     "./assets/logos/monitor/pm2.png",
   ]
-
 }
+
+let shadowLinks =  [
+  ["Linked","www.linkedin.com"],
+  ["Leetcode","www.leetcode.com"],
+  ["Github","www.github.com"],
+  ["Twitter","www.twitter.com"]
+]
+
+let shadowInfo = [
+  "I have 7+ years of experience developing software at scale"
+]
+
+let infoText = []
+
+let links = []
 
 let tags = {
   experience: [
@@ -132,38 +146,68 @@ let tags = {
 }
 
 function infoRenderer() {
+  debugger;
   const infoHolder = document.getElementById('infoHolder')
   infoHolder.innerHTML = ""
+
+  if(infoText.length > 0) {
+    let bioEle = document.createElement('p')
+    bioEle.setAttribute('class', 'bio__text')
+    bioEle.innerText = infoText.pop()
+    infoHolder.appendChild(bioEle)
+  }
+
+  if(links.length > 0) {
+    let linksWrapper = document.createElement('div')
+    linksWrapper.setAttribute('class', 'link__container')
+    for(let link of links) {
+      linksWrapper.append(createLink(link))
+    }
+    infoHolder.appendChild(linksWrapper)
+    links = []
+  }
+
   for(let key in tags) {
     let tagData = tags[key]
-    
     let tagsWrapper = document.createElement('div')
-    
-    if(tagData.length > 0) {
-      let tagsHeader = document.createElement('span')
-      tagsHeader.setAttribute('class', 'tags_header')
-      tagsHeader.innerText = key
-      tagsWrapper.appendChild(tagsHeader)
+    // append tag header 
+    if(tagData.length > 0) { 
+      tagsWrapper.appendChild(createTagHeader(key))
     }
-    
-
     let tagsContainer = document.createElement('div')
     tagsContainer.setAttribute('class', "tags__container")
-
+    // append tags to tags container
     if(tagData.length > 0) {
       tagData.forEach((tag) => {
-      let tagEle = document.createElement('img')
-      tagEle.setAttribute('class', 'tag')
-      tagEle.setAttribute('src', tag)
-      tagEle.setAttribute('width', "25px")
-      tagEle.setAttribute('height', "25px")
-      tagsContainer.appendChild(tagEle)
-    })
-
-    tagsWrapper.appendChild(tagsContainer)
+        tagsContainer.appendChild(createTag(tag))
+      })
+      tagsWrapper.appendChild(tagsContainer)
     }
     infoHolder.appendChild(tagsWrapper)
   }
+}
+
+function createLink(link) {
+  let linkEle = document.createElement('a')
+  linkEle.setAttribute('src', link[1])
+  linkEle.innerText = link[0] 
+  return link
+}
+
+function createTagHeader(key) {
+  let tagsHeader = document.createElement('span')
+  tagsHeader.setAttribute('class', 'tags_header')
+  tagsHeader.innerText = key
+  return tagsHeader
+}
+
+function createTag(tag) {
+  let tagEle = document.createElement('img')
+  tagEle.setAttribute('class', 'tag')
+  tagEle.setAttribute('src', tag)
+  tagEle.setAttribute('width', "25px")
+  tagEle.setAttribute('height', "25px")
+  return tagEle
 }
 
 infoRenderer()
@@ -189,6 +233,7 @@ class Level {
     })
   }
 }
+
 class State {
   constructor(level, actors, status) {
     this.level = level
@@ -215,8 +260,6 @@ class Vec {
   }
 }
 
-
-
 // **************************************************************
 // Actors
 class Player {
@@ -238,9 +281,7 @@ class Lava {
     this.speed = speed
     this.reset = reset
   }
-
   get type() { return "lava"}
-
   static create(pos, char) {
     if(char === "=") {
       return new Lava(pos, new Vec(2, 0))
@@ -253,16 +294,13 @@ class Lava {
 }
 Lava.prototype.size = new Vec(0.8,0.8)
 
-
 class Coin {
   constructor(pos, basePos, wobble) {
     this.pos = pos
     this.basePos = basePos
     this.wobble = wobble
   }
-
   get type() {return "coin"}
-
   static create(pos) {
     let basePos = pos.plus(new Vec(0.2, 0.1))
     return new Coin(basePos, basePos, Math.random() * Math.PI * 2)
@@ -270,7 +308,6 @@ class Coin {
 }
 Coin.prototype.size = new Vec(0.8, 0.8)
 //***************************************************************
-
 
 const levelChars = {
   "." : "empty",
@@ -310,7 +347,6 @@ class Adapter {
 }
 
 const scale = 20;
-
 function drawGrid(level) {
   return elt("table", {
     class: "background",
@@ -320,8 +356,6 @@ function drawGrid(level) {
         ...row.map(type => elt("td", {class: type})))
   ));
 }
-
-
 function drawActors(actors) {
   return elt("div", {}, ...actors.map(actor => {
     let rect = elt("div", {class: `actor ${actor.type}`});
@@ -332,7 +366,6 @@ function drawActors(actors) {
     return rect;
   }));
 }
-
 
 Adapter.prototype.syncState = function(state) {
   if (this.actorLayer) this.actorLayer.remove();
@@ -367,7 +400,6 @@ Adapter.prototype.scrollPlayerIntoView = function(state) {
     this.dom.scrollTop = center.y + margin - height;
   }
 };
-
 
 Level.prototype.touches = function(pos, size, type) {
   let xStart = Math.floor(pos.x);
@@ -408,16 +440,12 @@ State.prototype.update = function(time, keys) {
   return newState;
 };
 
-
-
 function overlap(actor1, actor2) {
   return actor1.pos.x + actor1.size.x > actor2.pos.x &&
          actor1.pos.x < actor2.pos.x + actor2.size.x &&
          actor1.pos.y + actor1.size.y > actor2.pos.y &&
          actor1.pos.y < actor2.pos.y + actor2.size.y;
 }
-
-
 
 Lava.prototype.collide = function(state) {
   playLavaCollision()
@@ -441,16 +469,22 @@ Coin.prototype.collide = function(state) {
       targetKey = tagCategoryKeyMap[Math.floor(Math.random() * 5)]
     }
   }
-
+  debugger;
   tag = shadowTags[targetKey].shift()
 
   tags[targetKey].push(tag)
+
+  if(shadowInfo.length > 0) {
+    infoText.push(shadowInfo.pop())
+  }
+  
+  if(shadowLinks.length > 0) {
+    links.push(shadowLinks.pop())
+  }
   infoRenderer()
 
   return new State(state.level, filtered, status);
-
 };
-
 
 Lava.prototype.update = function(time, state) {
   let newPos = this.pos.plus(this.speed.times(time));
@@ -499,8 +533,6 @@ Player.prototype.update = function(time, state, keys) {
   }
   return new Player(pos, new Vec(xSpeed, ySpeed));
 };
-
-
 
 function trackKeys(keys) {
   let down = Object.create(null);
@@ -553,14 +585,6 @@ function runLevel(level, Display) {
     });
   });
 }
-
-
 var simpleLevel = new Level(simpleLevelPlan);
-
 runLevel(simpleLevel, Adapter)
-
-
 // console.log(`${simpleLevel.width} by ${simpleLevel.height}`)
-
-
-
