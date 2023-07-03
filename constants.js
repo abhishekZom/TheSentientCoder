@@ -50,7 +50,7 @@ let shadowTags = {
 }
 
 let shadowLinks =  [
-  ["LinkeIn","https://www.linkedin.com/in/abhishek-kumar-b69a8290/"],
+  ["LinkedIn","https://www.linkedin.com/in/abhishek-kumar-b69a8290/"],
   // ["Leetcode","https://leetcode.com/AbhiCT/"],
   ["Github","https://github.com/abhishekZom"],
   ["Twitter","https://twitter.com/zoman_tech"]

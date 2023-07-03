@@ -469,6 +469,10 @@ function runLevel(level, Display) {
     });
   });
 }
+
 var simpleLevel = new Level(simpleLevelPlan);
 runLevel(simpleLevel, Adapter)
 // console.log(`${simpleLevel.width} by ${simpleLevel.height}`)
+
+
+
