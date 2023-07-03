@@ -8,121 +8,6 @@
 // the vertically moving blob is "|"
 
 // plans
-
-let simpleLevelPlan =  `
-+++++...........................................................................................................................................................
-+++++...........................................................................................................................................................
-+++++...........................................................................................................................................................
-+++++........%%%%%%%%%%%...........................................o............................................................................................
-+++++............................o.o.o..........................................................................................................................
-+++++...........................................................................................................................................................
-+++++.............................................................##............................................................................................
-+++++...........................................................................+++++...........................................................................
-#####...............#..=.....=.....=..#.........................................#####v.............................................................o............
-*****.......................#####.......................................##......................................................................................
-*****.......................................................................o..........................o.....####..............o................................
-*****....................#.........................................o...............................................................................o............
-*****..............o..............................................###..............................o..............................................###...........
-*****..............................................##......##....#*+*#.............................................................##......##....#*+*#..........
-*****.............#####.............o.o......##..................*+++*............................#####.............o.o......##..................*+++*..........
-*****............................................................*#+#*...........................................................................*#+#*..........
-*****..............................#####..........................*v*..............................................#####..........................#v#...........
-*****............#...............................................................................#........o.................................................##..
-****......................................o.o.............................................................................o.o................................*..
-***............o........o..............................%%%...................#....#..........................................................................*..
-***....o......................%%%%.......#####.............................o.*....*......................................#####.............................o.*..
-***..........####............................................................*....*..........####.......o.........................................o..........*..
-***..@.......*++*+...............................................#####.......*.##.*..........*..*+...................=..o..=..o..=..............#####.......#...
-***##########*++*##############...####################.....######*****#######*....*##########*..*##############...####################.....#####**...#######*#..
-*******************************...********************.....*******************+..+............................*...*..................*.....*....................
-*******************************+++********************+++++*******************................................*+++*..................*+++++*....................
-*******************************+++********************+++++*******************................................*+++*..................*+++++*....................
-*******************************###********************#####*******************................................*###*..................*#####*....................
-******************************************************************************..................................................................................
-******************************************************************************..................................................................................
-`;
-
-function playCoinCollision() {
-  let coinCollision = new Audio('./assets/audio/coin.mp3')
-  coinCollision.play()
-}
-function playLavaCollision() {
-  let lavaCollision = new Audio('./assets/audio/lava.mp3')
-  lavaCollision.volume = 0.2
-  lavaCollision.play()
-}
-function playGameLost() {
-  let gameLost = new Audio('./assets/audio/game_lost.mp3')
-  gameLost.volume = 0.3
-  gameLost.play()
-}
-function playGameWon() {
-  let gameWon = new Audio('./assets/audio/game_over.mp3')
-  gameWon.play()
-}
-
-let tagCategoryKeyMap = {
-  "0" : "experience",
-  "1" : "languages",
-  "2" : "frameworks",
-  "3" : "devops",
-  "4" : "monitoring"
-}
-
-let shadowTags = {
-  experience: [
-    "./assets/logos/work/ticketmaster.png",
-    "./assets/logos/work/medzin.png",
-    "./assets/logos/work/deber.png",
-    "./assets/logos/work/payu.png",
-    "./assets/logos/work/shipsy.png",
-    "./assets/logos/work/zomato.png",
-  ],
-  languages: [
-    "./assets/logos/lang/html.png",
-    "./assets/logos/lang/css.png",
-    "./assets/logos/lang/javascript.png",
-    "./assets/logos/lang/typescript.png",
-    "./assets/logos/lang/c++.png",
-    "./assets/logos/lang/lua.png",
-    "./assets/logos/lang/io.png",
-  ],
-  frameworks: [
-    "./assets/logos/frameworks/react.png",
-    "./assets/logos/frameworks/redux.png",
-    "./assets/logos/frameworks/saga.png",
-    "./assets/logos/frameworks/next.png",
-    "./assets/logos/frameworks/juce.png",
-    "./assets/logos/frameworks//socket.png",
-    "./assets/logos/frameworks/tailwind.png",
-  ],
-  devops: [
-    "./assets/logos/devops/webpack.png",
-    "./assets/logos/devops/docker.png",
-    "./assets/logos/devops/kuber.png",
-    "./assets/logos/devops/aws.png",
-    "./assets/logos/devops/vercel.png",
-    "./assets/logos/devops//git.png",
-  ],
-  monitoring: [
-    "./assets/logos/monitor/sentry.png",
-    "./assets/logos/monitor/logrocket.png",
-    "./assets/logos/monitor/kibana.png",
-    "./assets/logos/monitor/pm2.png",
-  ]
-}
-
-let shadowLinks =  [
-  ["Linked","www.linkedin.com"],
-  ["Leetcode","www.leetcode.com"],
-  ["Github","www.github.com"],
-  ["Twitter","www.twitter.com"]
-]
-
-let shadowInfo = [
-  "I have 7+ years of experience developing software at scale"
-]
-
 let infoText = []
 
 let links = []
@@ -145,15 +30,38 @@ let tags = {
   ]
 }
 
+function createLink(link) {
+  let linkEle = document.createElement('a')
+  linkEle.setAttribute('class', 'link__text')
+  linkEle.setAttribute('href', link[1])
+  linkEle.innerText = link[0]
+  return linkEle
+}
+
+function createTagHeader(key) {
+  let tagsHeader = document.createElement('span')
+  tagsHeader.setAttribute('class', 'tags_header')
+  tagsHeader.innerText = key
+  return tagsHeader
+}
+
+function createTag(tag) {
+  let tagEle = document.createElement('img')
+  tagEle.setAttribute('class', 'tag')
+  tagEle.setAttribute('src', tag)
+  tagEle.setAttribute('width', "25px")
+  tagEle.setAttribute('height', "25px")
+  return tagEle
+}
+
 function infoRenderer() {
-  debugger;
   const infoHolder = document.getElementById('infoHolder')
   infoHolder.innerHTML = ""
 
   if(infoText.length > 0) {
     let bioEle = document.createElement('p')
     bioEle.setAttribute('class', 'bio__text')
-    bioEle.innerText = infoText.pop()
+    bioEle.innerText = infoText[0]
     infoHolder.appendChild(bioEle)
   }
 
@@ -161,10 +69,9 @@ function infoRenderer() {
     let linksWrapper = document.createElement('div')
     linksWrapper.setAttribute('class', 'link__container')
     for(let link of links) {
-      linksWrapper.append(createLink(link))
+      linksWrapper.appendChild(createLink(link))
     }
     infoHolder.appendChild(linksWrapper)
-    links = []
   }
 
   for(let key in tags) {
@@ -185,29 +92,6 @@ function infoRenderer() {
     }
     infoHolder.appendChild(tagsWrapper)
   }
-}
-
-function createLink(link) {
-  let linkEle = document.createElement('a')
-  linkEle.setAttribute('src', link[1])
-  linkEle.innerText = link[0] 
-  return link
-}
-
-function createTagHeader(key) {
-  let tagsHeader = document.createElement('span')
-  tagsHeader.setAttribute('class', 'tags_header')
-  tagsHeader.innerText = key
-  return tagsHeader
-}
-
-function createTag(tag) {
-  let tagEle = document.createElement('img')
-  tagEle.setAttribute('class', 'tag')
-  tagEle.setAttribute('src', tag)
-  tagEle.setAttribute('width', "25px")
-  tagEle.setAttribute('height', "25px")
-  return tagEle
 }
 
 infoRenderer()

@@ -43,6 +43,26 @@
       margin: 10px auto;
       min-width: 200px;
     }
+    .bio__text {
+      color: white;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      text-align: center;
+    }
+    .link__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .link__text {
+      text-decoration: none;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      padding: 0.1rem;
+      color: lightseagreen;
+    }
     .info__header {
       color: white;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -129,7 +149,7 @@
     <div class="page__container">
       <div id="header" class="header">
         <p>Hi! I am Abhishek. I am a Software Engineer</p>
-        <p>Want to know more about me? Collect the coins and click the tags.</p>
+        <p>Want to know more about me? Collect the coins.</p>
       </div>
       <div class="game_section">
         <div id="gamePlaceholder"></div>
@@ -138,6 +158,9 @@
         </div>
       </div>
     </div>
+    <script src="./data.js"></script>
+    <script src="./constants.js"></script>
+    <script src="./audio.js"></script>
     <script src="./game.js"></script>
   </body>
 </html>
