@@ -353,7 +353,6 @@ Coin.prototype.collide = function(state) {
       targetKey = tagCategoryKeyMap[Math.floor(Math.random() * 5)]
     }
   }
-  debugger;
   tag = shadowTags[targetKey].shift()
 
   tags[targetKey].push(tag)
